@@ -1,0 +1,29 @@
+<main>
+  <section id="section-login" aria-labelledby="titulo-login">
+    <mat-icon class="login-icon" aria-hidden="true">sports_esports</mat-icon>
+    <h1 id="titulo-login">Login</h1>
+    <p>Entre para acessar sua conta na LH Games.</p>
+
+    <form (ngSubmit)="entrar()" #loginForm="ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Usuário</mat-label>
+        <input matInput type="email" name="usuario" [(ngModel)]="usuario"
+          placeholder="email@exemplo.com" required>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" name="senha" [(ngModel)]="senha"
+          placeholder="Digite sua senha" required>
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+        Entrar
+      </button>
+    </form>
+
+    <p class="mensagem" *ngIf="mensagem">{{ mensagem }}</p>
+  </section>
+</main>
