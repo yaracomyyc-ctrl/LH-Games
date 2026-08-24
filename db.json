@@ -1,0 +1,25 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "produto": "Neon Challenge",
+      "descricao": "Supere pistas futuristas e complete desafios em alta velocidade.",
+      "foto": "jogo1.PNG",
+      "preco": 300
+    },
+    {
+      "id": 2,
+      "produto": "Battle Soldier",
+      "descricao": "Prepare sua estratégia e enfrente missões cheias de ação.",
+      "foto": "jogo2.PNG",
+      "preco": 200
+    },
+    {
+      "id": 3,
+      "produto": "Fantasy Quest",
+      "descricao": "Explore reinos mágicos em uma aventura de fantasia.",
+      "foto": "jogo3.PNG",
+      "preco": 400
+    }
+  ]
+}

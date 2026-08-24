@@ -1,0 +1,69 @@
+<main class="container py-4">
+  <div class="cabecalho-pagina">
+    <div>
+      <p class="text-primary fw-semibold mb-1">ADMINISTRAÇÃO</p>
+      <h1 class="h2 mb-1">Painel de produtos</h1>
+      <p class="text-muted mb-0">Produtos carregados da API REST.</p>
+    </div>
+
+    <a class="btn btn-primary" routerLink="/cadastro-produto">
+      <span aria-hidden="true">＋</span> Cadastrar produto
+    </a>
+  </div>
+
+  <div *ngIf="carregando" class="alert alert-info mt-4" role="status">
+    Carregando produtos...
+  </div>
+
+  <div *ngIf="mensagemErro" class="alert alert-danger mt-4" role="alert">
+    {{ mensagemErro }}
+    <button class="btn btn-sm btn-outline-danger ms-2" type="button" (click)="carregarProdutos()">
+      Tentar novamente
+    </button>
+  </div>
+
+  <div *ngIf="!carregando && !mensagemErro" class="table-responsive bg-white rounded shadow-sm mt-4">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Imagem</th>
+          <th scope="col">Produto</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Preço</th>
+          <th scope="col" class="text-center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let produto of produtos">
+          <td>{{ produto.id }}</td>
+          <td>
+            <img
+              class="foto-produto"
+              [src]="'assets/img/' + produto.foto"
+              [alt]="'Capa do jogo ' + produto.produto">
+          </td>
+          <td class="fw-semibold">{{ produto.produto }}</td>
+          <td>{{ produto.descricao }}</td>
+          <td class="preco">{{ produto.preco | currency:'BRL' }}</td>
+          <td>
+            <div class="acoes">
+              <button class="btn btn-sm btn-outline-primary" type="button" (click)="editarProduto(produto.id)">
+                Editar
+              </button>
+              <button class="btn btn-sm btn-outline-danger" type="button" (click)="excluirProduto(produto)">
+                Excluir
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <tr *ngIf="produtos.length === 0">
+          <td colspan="6" class="text-center py-5 text-muted">
+            Nenhum produto cadastrado.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

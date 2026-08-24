@@ -1,91 +1,106 @@
-# LH Games - Loja de Jogos em Angular
+# LH Games - Angular com consumo de API
 
-Projeto desenvolvido para a atividade **Implementação da Tela Inicial do site da loja de Jogos no Angular**, do curso Full Stack do SENAI.
+Projeto desenvolvido para as atividades de Angular do curso Full Stack do SENAI.
 
-A aplicação apresenta uma loja virtual simples, com página inicial, produtos em promoção, formulário de login, menu, rodapé e navegação por rotas.
+Nesta segunda etapa, a loja passou a consumir uma API REST simulada com JSON Server. O painel lista os produtos da API e permite cadastrar, editar e excluir jogos.
 
-## Tecnologias utilizadas
+## Tecnologias
 
-- Angular 15
-- TypeScript
+- Angular 15 e TypeScript
 - Angular Material
 - Bootstrap 5
-- HTML e CSS
+- HttpClient
+- JSON Server 0.17.4
 
-## Funcionalidades da atividade
+## Funcionalidades
 
-- Menu reutilizável com links para Início e Login.
-- Carrossel de banners feito com Bootstrap.
-- Cards de produtos feitos com Angular Material.
-- Produtos criados a partir de uma classe TypeScript.
-- Repetição dos cards evitada com `*ngFor`.
-- Formulário com os campos usuário e senha.
-- Rotas `/inicio` e `/login`.
-- Rodapé reutilizável.
-- Layout adaptado para computador, tablet e celular.
+- Listagem de produtos consumida com uma requisição `GET`.
+- Cadastro de produto com `POST`.
+- Consulta de um produto para edição com `GET /:id`.
+- Atualização de produto com `PUT`.
+- Exclusão de produto com `DELETE`.
+- Mensagens de carregamento e erro.
+- Formulário com validação de campos obrigatórios.
+- Navegação entre painel, cadastro, vitrine e login.
+- Layout responsivo com Bootstrap.
 
-> O login e a compra são apenas demonstrações de Front-End. Não existe API ou banco de dados nesta etapa.
+As páginas de vitrine e login da Atividade 1 foram mantidas para mostrar a evolução do projeto.
 
 ## Como executar
 
 ### Pré-requisitos
 
-Instale:
+- [Node.js 18 LTS](https://nodejs.org/)
+- npm
 
-- [Node.js 18 LTS](https://nodejs.org/) (versão compatível com o Angular 15 deste projeto)
-- Angular CLI 15: `npm install -g @angular/cli@15` (opcional para usar comandos `ng` diretamente)
-- Git, caso deseje publicar o projeto no GitHub
+### Instalação
 
-### Passos
+Abra um terminal na pasta do projeto e execute:
 
-1. Abra a pasta `loja-games` no VS Code.
-2. Abra o terminal na pasta do projeto.
-3. Instale as dependências:
+```bash
+npm install
+```
 
-   ```bash
-   npm install
-   ```
+### 1. Iniciar a API
 
-4. Inicie o servidor:
+No primeiro terminal:
 
-   ```bash
-   npm start
-   ```
+```bash
+npm run api
+```
 
-5. Acesse `http://localhost:4200` no navegador.
+A API estará disponível em `http://localhost:3000/produtos`.
+
+### 2. Iniciar o Angular
+
+Sem fechar a API, abra um segundo terminal na mesma pasta:
+
+```bash
+npm start
+```
+
+Acesse `http://localhost:4200` no navegador.
 
 ## Rotas
 
-| Endereço | Componente | Conteúdo |
-| --- | --- | --- |
-| `/inicio` | `InicioComponent` | Banners e jogos em promoção |
-| `/login` | `LoginComponent` | Formulário de usuário e senha |
-| `/` | Redirecionamento | Envia o usuário para `/inicio` |
+| Endereço | Função |
+| --- | --- |
+| `/painel-principal` | Lista os produtos da API |
+| `/cadastro-produto` | Cadastra um produto |
+| `/cadastro-produto/:id` | Edita o produto selecionado |
+| `/inicio` | Vitrine criada na Atividade 1 |
+| `/login` | Login demonstrativo da Atividade 1 |
 
 ## Estrutura principal
 
 ```text
-src/app/
-├── inicio/            # Página inicial e produtos
-├── login/             # Formulário de login
-├── menu/              # Barra de navegação
-├── models/jogo.ts     # Classe que representa um jogo
-├── rodape/            # Rodapé do site
-├── app-routing.module.ts
-└── app.module.ts
+loja-games/
+├── db.json
+├── src/app/
+│   ├── componentes/
+│   │   ├── cadastro-produto/
+│   │   └── painel-principal/
+│   ├── models/produto.ts
+│   ├── servicos/produto.service.ts
+│   ├── inicio/
+│   ├── login/
+│   ├── menu/
+│   └── rodape/
+├── DOCUMENTACAO.md
+└── package.json
 ```
 
-## Gerar a versão de produção
+## Build de produção
 
 ```bash
 npm run build
 ```
 
-Os arquivos gerados ficam na pasta `dist/loja-games`.
+Os arquivos são gerados em `dist/loja-games`.
 
 ## Documentação
 
-Consulte [DOCUMENTACAO.md](DOCUMENTACAO.md) para entender os componentes, a classe TypeScript, os métodos e o processo de publicação no GitHub.
+Consulte [DOCUMENTACAO.md](DOCUMENTACAO.md) para entender o JSON Server, o service, os componentes e o passo a passo de utilização.
 
 ## Autora
 

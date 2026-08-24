@@ -1,0 +1,11 @@
+.card {
+  max-width: 780px;
+}
+
+.previsualizacao img {
+  width: 180px;
+  height: 110px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  object-fit: cover;
+}

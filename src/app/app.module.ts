@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 /*Importações Angular Material*/
 import {MatButtonModule} from '@angular/material/button';
@@ -19,6 +20,8 @@ import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
 import { MenuComponent } from './menu/menu.component';
 import { RodapeComponent } from './rodape/rodape.component';
+import { PainelPrincipalComponent } from './componentes/painel-principal/painel-principal.component';
+import { CadastroProdutoComponent } from './componentes/cadastro-produto/cadastro-produto.component';
 
 @NgModule({
   declarations: [
@@ -26,11 +29,14 @@ import { RodapeComponent } from './rodape/rodape.component';
     InicioComponent,
     LoginComponent,
     MenuComponent,
-    RodapeComponent
+    RodapeComponent,
+    PainelPrincipalComponent,
+    CadastroProdutoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,

@@ -1,0 +1,31 @@
+.cabecalho-pagina {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.foto-produto {
+  width: 88px;
+  height: 60px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.preco {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.acoes {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+  .cabecalho-pagina {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

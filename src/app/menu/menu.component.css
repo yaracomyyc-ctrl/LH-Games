@@ -1,57 +1,24 @@
-mat-toolbar {
-  position: relative;
-  z-index: 10;
-  min-height: 64px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
-}
-
-.marca,
-.link-menu {
-  display: inline-flex;
+.navbar-brand {
+  display: flex;
   align-items: center;
   gap: 8px;
-  color: white;
-  text-decoration: none;
+  font-weight: 600;
 }
 
-.marca {
-  margin-right: 32px;
-  font-weight: 500;
-}
-
-.marca img {
+.navbar-brand img {
   width: 46px;
   height: 46px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.link-menu {
-  min-height: 64px;
-  padding: 0 12px;
-  font-size: 16px;
+.nav-link {
+  border-radius: 6px;
+  padding-right: 14px !important;
+  padding-left: 14px !important;
 }
 
-.link-menu:hover,
-.link-menu.ativo {
-  background-color: rgba(255, 255, 255, 0.12);
-}
-
-.espacador {
-  flex: 1 1 auto;
-}
-
-@media (max-width: 520px) {
-  .marca {
-    margin-right: 6px;
-  }
-
-  .marca span {
-    display: none;
-  }
-
-  .link-menu {
-    padding: 0 8px;
-    font-size: 14px;
-  }
+.nav-link:hover,
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.14);
 }

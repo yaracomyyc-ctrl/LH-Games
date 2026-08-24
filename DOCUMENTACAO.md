@@ -1,177 +1,197 @@
 # Documentação do sistema - LH Games
 
-## 1. Objetivo
+## 1. Objetivo da Atividade 2
 
-O objetivo deste projeto é recriar o Front-End de uma loja de jogos utilizando Angular. A aplicação foi dividida em componentes para evitar repetição de código e facilitar futuras alterações ou integrações com um Back-End.
+O objetivo desta etapa é integrar o Front-End Angular a uma API REST. A aplicação usa o JSON Server para simular um Back-End e armazenar os produtos no arquivo `db.json`.
 
-## 2. Como utilizar o site
+O painel principal busca a lista de produtos na API. A tela de cadastro envia novos produtos e também é usada para editar um item existente. O usuário ainda pode excluir produtos.
 
-Ao abrir o endereço `http://localhost:4200`, o Angular redireciona para a página inicial.
+## 2. Como iniciar o sistema
 
-Na página **Produtos**, o usuário encontra:
-
-- um carrossel com três banners;
-- três jogos em promoção;
-- nome, descrição e preço de cada jogo;
-- botão **Comprar**, que demonstra a seleção do produto.
-
-Ao clicar em **Login**, o usuário acessa um formulário com:
-
-- campo de usuário, no formato de e-mail;
-- campo de senha;
-- botão **Entrar**.
-
-O botão fica desabilitado enquanto algum campo obrigatório estiver vazio. Nesta etapa, o formulário não autentica o usuário em um servidor; ele apenas exibe uma mensagem de confirmação.
-
-## 3. Componentes do Angular
-
-### AppComponent
-
-É o componente principal. Seu HTML reúne os elementos que aparecem em todas as páginas:
-
-```html
-<app-menu></app-menu>
-<router-outlet></router-outlet>
-<app-rodape></app-rodape>
-```
-
-O `router-outlet` mostra o componente correspondente à rota atual.
-
-### MenuComponent
-
-Utiliza `mat-toolbar` e `mat-icon` do Angular Material. Os links usam `routerLink`, evitando o recarregamento completo da página.
-
-### InicioComponent
-
-Contém o carrossel do Bootstrap e os cards do Angular Material. Os jogos ficam em um vetor TypeScript e o `*ngFor` cria um card para cada item.
-
-### LoginComponent
-
-Utiliza `mat-form-field`, `matInput`, ícones e botão do Angular Material. O `FormsModule` permite ligar os campos às propriedades `usuario` e `senha` por meio do `[(ngModel)]`.
-
-### RodapeComponent
-
-É um componente simples e reutilizável que mostra a autoria do projeto.
-
-## 4. Rotas
-
-As rotas ficam em `src/app/app-routing.module.ts`:
-
-```typescript
-const routes: Routes = [
-  { path: 'inicio', component: InicioComponent },
-  { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
-  { path: '**', redirectTo: '/inicio' }
-];
-```
-
-A rota `**` impede que o usuário permaneça em uma página inexistente.
-
-## 5. TypeScript utilizado no projeto
-
-### Diferença entre JavaScript e TypeScript
-
-JavaScript executa diretamente no navegador e permite variáveis sem tipo definido. TypeScript acrescenta tipagem e recursos de orientação a objetos. Antes da aplicação rodar, o código TypeScript é convertido para JavaScript.
-
-Exemplo de uma variável tipada:
-
-```typescript
-preco: number = 300;
-```
-
-### Classe e objeto
-
-A classe `Jogo` funciona como um modelo:
-
-```typescript
-export class Jogo {
-  constructor(
-    public nome: string,
-    public descricao: string,
-    public preco: number,
-    public imagem: string
-  ) {}
-}
-```
-
-Um objeto é criado com `new`:
-
-```typescript
-new Jogo('Neon Challenge', 'Descrição do jogo', 300, 'assets/img/jogo1.PNG');
-```
-
-### Construtor
-
-O `constructor` é chamado quando o objeto ou componente é criado. No `InicioComponent`, ele preenche a lista inicial de jogos.
-
-### Método
-
-Um método representa uma ação da classe. O método `comprar` recebe um jogo e mostra qual produto foi selecionado:
-
-```typescript
-comprar(jogo: Jogo): void {
-  alert(`${jogo.nome} foi selecionado!`);
-}
-```
-
-O tipo `void` informa que o método não devolve um valor.
-
-## 6. Angular Material e Bootstrap
-
-Os módulos do Angular Material são importados no `AppModule`. O Bootstrap foi configurado no arquivo `angular.json`.
-
-Componentes utilizados:
-
-- `MatToolbarModule`: menu;
-- `MatCardModule`: produtos;
-- `MatFormFieldModule` e `MatInputModule`: formulário;
-- `MatButtonModule`: botões;
-- `MatIconModule`: ícones;
-- Bootstrap Carousel: banners;
-- Bootstrap Grid: organização responsiva dos cards.
-
-## 7. Instalação
-
-Use preferencialmente o Node.js 18 LTS, que é compatível com o Angular 15 deste projeto. No terminal, dentro da pasta do projeto:
+Use o Node.js 18 LTS. No terminal, entre na pasta `loja-games` e instale as dependências:
 
 ```bash
 npm install
+```
+
+O sistema precisa de dois servidores funcionando ao mesmo tempo.
+
+### Terminal 1: API
+
+```bash
+npm run api
+```
+
+Endereços importantes:
+
+- API: `http://localhost:3000`
+- Produtos: `http://localhost:3000/produtos`
+
+### Terminal 2: Angular
+
+```bash
 npm start
 ```
 
-Depois, abra `http://localhost:4200`.
+Abra `http://localhost:4200`. A rota inicial redirecionará para o painel de produtos.
 
-Para interromper o servidor, pressione `Ctrl + C` no terminal.
+## 3. Como utilizar
 
-## 8. Publicação no GitHub
+### Listar produtos
 
-Crie um repositório vazio no GitHub. Em seguida, execute na pasta do projeto:
+Clique em **Painel**. A tabela mostra ID, imagem, produto, descrição, preço e ações. Esses dados não estão escritos diretamente no HTML: eles são recebidos da API.
 
-```bash
-git init
-git add .
-git commit -m "Projeto da loja de jogos em Angular"
-git branch -M main
-git remote add origin COLE_AQUI_A_URL_DO_REPOSITORIO
-git push -u origin main
+### Cadastrar produto
+
+1. Clique em **Cadastrar** ou em **Cadastrar produto**.
+2. Digite nome, descrição, arquivo da foto e preço.
+3. As fotos disponíveis inicialmente são `jogo1.PNG`, `jogo2.PNG` e `jogo3.PNG`.
+4. Clique em **Salvar produto**.
+5. Depois do cadastro, o sistema volta ao painel.
+
+### Editar produto
+
+1. No painel, clique em **Editar**.
+2. O Angular usa o ID da rota para buscar o produto.
+3. Altere os campos e clique em **Salvar produto**.
+
+### Excluir produto
+
+Clique em **Excluir** e confirme a pergunta exibida pelo navegador. A aplicação solicita a exclusão à API e recarrega a tabela.
+
+## 4. O que é uma API REST
+
+Uma API permite que sistemas diferentes troquem informações. Neste projeto, o Angular é o cliente e o JSON Server simula o servidor.
+
+| Método HTTP | Endereço | Ação no projeto |
+| --- | --- | --- |
+| `GET` | `/produtos` | Lista todos os produtos |
+| `GET` | `/produtos/:id` | Busca um produto |
+| `POST` | `/produtos` | Cadastra um produto |
+| `PUT` | `/produtos/:id` | Atualiza um produto |
+| `DELETE` | `/produtos/:id` | Exclui um produto |
+
+## 5. Banco de dados simulado
+
+O arquivo `db.json` contém um vetor chamado `produtos`:
+
+```json
+{
+  "produtos": [
+    {
+      "id": 1,
+      "produto": "Neon Challenge",
+      "descricao": "Supere pistas futuristas...",
+      "foto": "jogo1.PNG",
+      "preco": 300
+    }
+  ]
+}
 ```
 
-Não envie a pasta `node_modules`; ela já está indicada no arquivo `.gitignore` e será recriada com `npm install`.
+Quando um cadastro, uma edição ou uma exclusão é feita, o JSON Server altera esse arquivo.
 
-## 9. Checklist de conferência
+## 6. Modelo TypeScript
 
-Antes da entrega no AVA, confira no navegador:
+O arquivo `src/app/models/produto.ts` define quais campos um produto deve ter:
 
-- [ ] A página inicial abre pela rota padrão.
-- [ ] Os botões do carrossel mudam os banners.
-- [ ] Os três produtos são exibidos.
-- [ ] O menu navega entre Início e Login.
-- [ ] O formulário exige usuário e senha.
-- [ ] O rodapé aparece nas duas páginas.
-- [ ] O layout se adapta a telas menores.
-- [x] O comando `npm run build` gera a versão de produção sem erro.
+```typescript
+export interface Produto {
+  id?: number;
+  produto: string;
+  descricao: string;
+  foto: string;
+  preco: number | null;
+}
+```
 
-## 10. Próximas melhorias
+O `id` é opcional porque, durante um novo cadastro, ele ainda será criado pelo JSON Server. A tipagem ajuda a encontrar erros enquanto o código está sendo desenvolvido.
 
-Em uma etapa futura, o projeto poderá consumir uma API para carregar produtos, autenticar usuários e registrar compras em um banco de dados.
+## 7. ProdutoService
+
+O arquivo `src/app/servicos/produto.service.ts` concentra o acesso ao Back-End. Isso evita repetir endereços e chamadas HTTP nos componentes.
+
+O construtor recebe o `HttpClient` por injeção de dependência:
+
+```typescript
+constructor(private http: HttpClient) {}
+```
+
+Principais métodos:
+
+- `listarProdutos()`: faz GET da lista;
+- `buscarProdutoPorId(id)`: faz GET de um produto;
+- `cadastrarProduto(produto)`: faz POST;
+- `atualizarProduto(id, produto)`: faz PUT;
+- `excluirProduto(id)`: faz DELETE.
+
+Cada método retorna um `Observable`. O componente usa `subscribe` para tratar a resposta da API ou um possível erro.
+
+## 8. Componentes
+
+### PainelPrincipalComponent
+
+Ao iniciar, chama `carregarProdutos()`. O HTML utiliza `*ngFor` para criar uma linha para cada produto recebido. Os métodos de edição e exclusão respondem aos botões da tabela.
+
+### CadastroProdutoComponent
+
+Usa um formulário com `[(ngModel)]`. Quando existe um ID na rota, carrega o produto e entra no modo de edição. Sem ID, realiza um novo cadastro.
+
+### MenuComponent e RodapeComponent
+
+São reutilizados em todas as páginas. O menu foi feito com Bootstrap e possui links do Angular Router.
+
+### Componentes da Atividade 1
+
+`InicioComponent` e `LoginComponent` continuam disponíveis nas rotas `/inicio` e `/login`.
+
+## 9. Rotas
+
+```typescript
+const routes: Routes = [
+  { path: 'painel-principal', component: PainelPrincipalComponent },
+  { path: 'cadastro-produto', component: CadastroProdutoComponent },
+  { path: 'cadastro-produto/:id', component: CadastroProdutoComponent },
+  { path: 'inicio', component: InicioComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/painel-principal', pathMatch: 'full' },
+  { path: '**', redirectTo: '/painel-principal' }
+];
+```
+
+## 10. Possíveis erros
+
+### A mensagem diz que não foi possível carregar
+
+Confira se o comando `npm run api` está funcionando no primeiro terminal e se `http://localhost:3000/produtos` abre no navegador.
+
+### A porta 3000 já está em uso
+
+Feche o programa que está usando essa porta e execute novamente `npm run api`.
+
+### A imagem não aparece
+
+Confira se o nome digitado é igual ao arquivo dentro de `src/assets/img`. Em alguns sistemas, letras maiúsculas e minúsculas fazem diferença.
+
+### O comando ng não é encontrado
+
+Use `npm start` e `npm run build`, pois esses comandos utilizam a versão local do Angular CLI.
+
+## 11. Checklist da entrega
+
+- [x] Bootstrap instalado e configurado.
+- [x] Angular Material instalado e configurado.
+- [x] JSON Server configurado.
+- [x] Arquivo `db.json` com produtos.
+- [x] `HttpClientModule` importado.
+- [x] Service com GET, POST, PUT e DELETE.
+- [x] Painel consumindo a lista da API.
+- [x] Tela de cadastro de produto.
+- [x] Edição e exclusão implementadas.
+- [x] Formulário validado.
+- [x] Build de produção executado sem erros.
+- [x] API testada nas quatro operações.
+
+## 12. Publicação
+
+O repositório deve permanecer público para que o tutor consiga acessar o código pelo link enviado no AVA. A pasta `node_modules` não deve ser publicada, pois é recriada pelo comando `npm install`.
